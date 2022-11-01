@@ -1,2 +1,3 @@
-# AutoCompleteModes_in_AutoComplete_Component
-This sample explains how to use auto complete modes in AutoComplete component
+# Winforms-AutoComplete-Examples
+This sample demonstrates how to use Winforms AutoComplete component and its properties.
+ 
