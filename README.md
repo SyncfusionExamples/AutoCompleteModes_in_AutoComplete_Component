@@ -39,9 +39,7 @@ The auto-complete functionality can be added to the RichTextBox control. The fol
 
 1. Implement the `IEditControlsEmbed` interface in a CustomRichTextBox class that enables the AutoComplete functionality for the RichTextBox control.
 
-{% capture codesnippet1 %}
-{% tabs %}
-{% highlight C# %}
+## C#
 
     public class CustomRichTextBox : System.Windows.Forms.RichTextBox, IEditControlsEmbed
 
@@ -53,46 +51,12 @@ The auto-complete functionality can be added to the RichTextBox control. The fol
             }
      }
 
-{% endhighlight %}
-
-{% highlight VB %}
-
-    Public Class CustomRichTextBox Inherits System.Windows.Forms.RichTextBox Implements IEditControlsEmbed
-     ' Returns the active RichTextBox control.
-     Public Function GetActiveEditControl(ByVal listener As IEditControlsEmbedListener) As Control
-
-         Return CType(Me, Control)
-
-     End Function
-
-     End Class
-
-{% endhighlight %}
-{% endtabs %}
-{% endcapture %}
-{{ codesnippet1 | OrderList_Indent_Level_1 }}
-
 2. Create an instance for the CustomRichTextBox class and the AutoComplete component. Then, use the [SetAutoComplete](https://help.syncfusion.com/cr/windowsforms/Syncfusion.Windows.Forms.Tools.AutoComplete.html#Syncfusion_Windows_Forms_Tools_AutoComplete_SetAutoComplete_System_Windows_Forms_Control_Syncfusion_Windows_Forms_Tools_AutoCompleteModes_) method of AutoComplete component to enable auto-complete support for the RichTextBox control.
 
-{% capture codesnippet2 %}
-{% tabs %}
-{% highlight C# %}
+## C#
 
     Syncfusion.Windows.Forms.Tools.AutoComplete autoComplete1= new Syncfusion.Windows.Forms.Tools.AutoComplete();
     CustomRichTextBox richTextBox1= new CustomRichTextBox();    
     autoComplete1.SetAutoComplete(richTextBox1, Syncfusion.Windows.Forms.Tools.AutoCompleteModes.AutoSuggest);
-
-{% endhighlight %}
-
-{% highlight VB %}
-
-    Dim autoComplete1 As Syncfusion.Windows.Forms.Tools.AutoComplete = New Syncfusion.Windows.Forms.Tools.AutoComplete 
-    Dim richTextBox1 As CustomRichTextBox = New CustomRichTextBox
-    autoComplete1.SetAutoComplete(richTextBox1, AutoCompleteModes.AutoSuggest)
-
-{% endhighlight %}
-{% endtabs %}
-{% endcapture %}
-{{ codesnippet2 | OrderList_Indent_Level_1 }}
 
 ![RichTextBox Integration](Autocomplete-Images/autocomplete_richtextbox.png)
