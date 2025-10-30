@@ -1,62 +1,59 @@
 # Winforms-AutoComplete-Examples
-The WinForms Autocomplete component allows users to enable autocompletion functionality for any edit control. Multiple columns with a header in the autocomplete pop-up provide information for each matching entry. Its rich, built-in feature set includes different autocompletion modes such as suggest and append, appearance customization, and more. For more details please refer [What is winforms AutoComplete](https://www.syncfusion.com/kb/1086/what-is-the-autocomplete-control).
+## Overview
+The WinForms AutoComplete component allows users to enable autocomplete functionality to edit controls. It supports multi-column suggestions with headers, multiple modes (Suggest, Append, SuggestAppend), and rich appearance customization. See What is WinForms AutoComplete for details: https://www.syncfusion.com/kb/1086/what-is-the-autocomplete-control
 
 ## AutoComplete Modes
-* Suggest: Displays suggestion in drop-down list.
-
+* Suggest: Shows suggestions in a drop-down list.
+  
 ![Autocomplete Suggest](AutoComplete-Images/autocomplete_autosuggest.png)
-
-* Append: Appends the first suggestion to text.
-
+* Append: Appends the best match to the typed text.
+  
 ![Autocomplete Append](AutoComplete-Images/autocomplete_autoappend.png)
-
-* SuggestAppend: Performs both the above ways.
-
+* SuggestAppend: Combines Suggest and Append.
+  
 ![AutoComplete Suggest Append](AutoComplete-Images/autocomplete_both.png)
 
-## DataSource
-Sets the Datasource to the Autocomplete component. The AutoComplete component automatically picks the "History Data List" mode or "Data source" mode based on the values set for the DataSource property. When the datasource property is set to NULL (default value is NULL), the component defaults to History Data List mode. It is to be remembered that the properties CategoryName, AutoAddItem, and AutoSerialize have to be set appropriately for the History Data List mode to work properly.
+## DataSource for AutoComplete
+Datasource for AutoComplete operates in one of two ways, chosen by the DataSource property:
+- History Data List mode: When DataSource is null (default), the control records and uses user-entered items. Set CategoryName, AutoAddItem, and AutoSerialize appropriately for this mode.
+- Data source mode: When DataSource is set, items come from your bound list.
 
 ## Override Combo
-If MS ComboBox is used as editor control, the Combobox dropdown can be suppressed and overridden by the AutoComplete component using the OverrideCombo property.
+When using a standard Windows Forms ComboBox as the editor, you can suppress the ComboBox’s own drop-down and use AutoComplete’s suggestion UI via the OverrideCombo property.
 
 ![AutoComplete OverrideCombo](AutoComplete-Images/autocomplete_overridecombo.png)
 
 ## Persistence
-The history list of AutoComplete component can be saved in the following formats:
+The AutoComplete history list can be persisted in the following formats:
 
-* Binary Format
-* XML Format
-* IsolatedStorage medium
-* MemoryStream
-* PersistState property
+- Binary file/stream
+- XML file/stream
+- Isolated storage
+- Windows Registry
 
-The AutoComplete component has a fully built-in serialization feature that provides automatic serialization for the AutoComplete’s history list. The serialization mechanism is implemented using the standardized Syncfusion.Windows.Forms.AppStateSerializer component that acts as a central coordinator for all the Essential tools components and provides options to read or write to different media such as the default isolated storage, XML file, XML stream, binary file, binary stream, and the Windows Registry.
- 
-# Integration with RichTextBox control
+You control this via the PersistState property and AppStateSerializer settings. Note: The serializer type is Syncfusion.Windows.Forms.AppStateSerializer.
 
-The auto-complete functionality can be added to the RichTextBox control. The following steps are used to integrate the RichTextBox with the AutoComplete component:
+## Integration with RichTextBox control
+You can enable AutoComplete on a RichTextBox by implementing IEditControlsEmbed and calling SetAutoComplete.
 
-1. Implement the `IEditControlsEmbed` interface in a CustomRichTextBox class that enables the AutoComplete functionality for the RichTextBox control.
+Step 1: Implement `IEditControlsEmbed` 
+```C#
+    using System.Windows.Forms;
+    using Syncfusion.Windows.Forms.Tools;
 
-## C#
-
-    public class CustomRichTextBox : System.Windows.Forms.RichTextBox, IEditControlsEmbed
-
-     {
+    public class CustomRichTextBox : RichTextBox, IEditControlsEmbed
+    {
            // Returns the active RichTextBox control.
             public Control GetActiveEditControl(IEditControlsEmbedListener listener)
             {
                        return (Control)this;
             }
      }
-
-2. Create an instance for the CustomRichTextBox class and the AutoComplete component. Then, use the [SetAutoComplete](https://help.syncfusion.com/cr/windowsforms/Syncfusion.Windows.Forms.Tools.AutoComplete.html#Syncfusion_Windows_Forms_Tools_AutoComplete_SetAutoComplete_System_Windows_Forms_Control_Syncfusion_Windows_Forms_Tools_AutoCompleteModes_) method of AutoComplete component to enable auto-complete support for the RichTextBox control.
-
-## C#
-
-    Syncfusion.Windows.Forms.Tools.AutoComplete autoComplete1= new Syncfusion.Windows.Forms.Tools.AutoComplete();
-    CustomRichTextBox richTextBox1= new CustomRichTextBox();    
-    autoComplete1.SetAutoComplete(richTextBox1, Syncfusion.Windows.Forms.Tools.AutoCompleteModes.AutoSuggest);
-
+```
+Step 2: Attach AutoComplete
+```C#
+    var autoComplete = new AutoComplete();
+    var richTextBox = new CustomRichTextBox();    
+    autoComplete.SetAutoComplete(richTextBox, AutoCompleteModes.AutoSuggest);
+```
 ![RichTextBox Integration](AutoComplete-Images/autocomplete_richtextbox.png)
