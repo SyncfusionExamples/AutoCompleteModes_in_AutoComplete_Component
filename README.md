@@ -59,4 +59,4 @@ The auto-complete functionality can be added to the RichTextBox control. The fol
     CustomRichTextBox richTextBox1= new CustomRichTextBox();    
     autoComplete1.SetAutoComplete(richTextBox1, Syncfusion.Windows.Forms.Tools.AutoCompleteModes.AutoSuggest);
 
-![RichTextBox Integration](Autocomplete-Images/autocomplete_richtextbox.png)
+![RichTextBox Integration](AutoComplete-Images/autocomplete_richtextbox.png)
